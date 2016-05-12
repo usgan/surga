@@ -12,6 +12,14 @@ class M_login extends CI_Model{
     public function user($data) {
         $this->db->select('user_id, username, email, status');
         $this->db->where('username', $data);
+        $this->db->where('status !=', 'blocked');
+        $query = $this->db->get('user_table', 1);
+        return $query->result();
+    }
+    
+    public function userID($id) {
+        $this->db->select('user_id, username, email, status');
+        $this->db->where('user_id', $id);
         $query = $this->db->get('user_table', 1);
         return $query->result();
     }
@@ -22,16 +30,6 @@ class M_login extends CI_Model{
         $this->db->where('password', $pass);
         $query = $this->db->get('user_table', 1);
         return $query->result();
-    }
-    
-    public function insert_auth(){
-        //get data
-        $this->bonus_name = $data['bonus_name'];
-        $this->bonus_income = $data['bonus_income'];
-        $this->description = $data['description'];
-
-        //insert data
-        $this->db->insert('bonus_core', $this);
     }
     
     function __destruct() {

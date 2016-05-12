@@ -9,13 +9,6 @@ class M_user extends CI_Model{
         $this->load->library(array('form_validation','session','encrypt'));
     }
     
-    public function decrypt($value){
-        $this->encrypt->set_cipher(MCRYPT_RIJNDAEL_256);
-        $this->encrypt->set_mode(MCRYPT_MODE_CBC);
-        $decrypted_string = $this->encrypt->decode($value);
-        return $decrypted_string;
-    }
-    
     public function user() {
         //$this->db->where('username', $data['username']);
         //$this->db->where('password',$data['password']));
@@ -23,6 +16,14 @@ class M_user extends CI_Model{
         $query = $this->db->get('user_table', 1);
         return $query->result();
         //return $this->db->get('table_user')->row();
+    }
+    
+    public function blockUser($id){
+        //get data
+        $this->status = "blocked";
+
+        //update data
+        $this->db->update('user_table', $this, array('user_id'=>$id));
     }
     
     
