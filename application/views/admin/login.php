@@ -61,20 +61,19 @@
                                             <?php echo form_open('login/login')?>
                                                 <?php if ($user_verified == 0){?>
                                                     <div class="form-group">
-                                                        <input type="text" name="user" class="form-control" placeholder="Email" required>
+                                                        <input type="text" name="username" class="form-control" placeholder="Email or Username" required>
                                                     </div>
                                                 <?php } else if ($user_verified == 1){?>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Email or Username" value="<?php echo $username;?>" required disabled>
+                                                   <div class="form-group">
+                                                       <input type="text" name="username" class="form-control" placeholder="Email or Username" value="<?php echo $username;?>" required readonly>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="password" class="form-control" placeholder="Password" required>
-                                                    </div>
+                                                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                                                    </div> <?php }?>
                                                     <?php if ($notif != ""){?>
                                                     <div class="form-group">
                                                         <div style=" background-color: #D6464B; color:#fff; padding: 5px 10px 5px 10px;"><?php echo $notif;?></div>
                                                     </div>
-                                                    <?php }?>
                                                 <?php } ?>
                                                 <button type="submit" class="btn btn-success btn-block">Login</button>
                                                 <a href="forgot.html" class="display-block text-center m-t-md text-sm">Forgot Password?</a>

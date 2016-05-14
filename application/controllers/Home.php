@@ -3,9 +3,12 @@ class Home extends CI_Controller {
     
     public function __construct() {
         parent::__construct();
-        
         $this->load->model("admin/M_login");
         
+        if(!$this->session->userdata('user_id')) {
+            $this->session->set_flashdata('flash_data', 'Anda Tidak Mempunyai Hak Akses!');
+            redirect('Login/view');
+        }
     }
     
     public function index(){

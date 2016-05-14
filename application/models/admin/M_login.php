@@ -9,9 +9,8 @@ class M_login extends CI_Model{
         $this->load->library(array('form_validation','session','encrypt'));
     }
     
-    public function user($data) {
+    public function user() {
         $this->db->select('user_id, username, email, status');
-        $this->db->where('username', $data);
         $this->db->where('status !=', 'blocked');
         $query = $this->db->get('user_table', 1);
         return $query->result();
@@ -24,10 +23,9 @@ class M_login extends CI_Model{
         return $query->result();
     }
     
-    public function user_verified($user, $pass){
-        $this->db->select('user_id, username, email, password');
-        $this->db->where('username', $user);
-        $this->db->where('password', $pass);
+    public function user_verified(){
+        $this->db->select('user_id, username, email, password, status');
+        $this->db->where('status !=', 'blocked');
         $query = $this->db->get('user_table', 1);
         return $query->result();
     }
