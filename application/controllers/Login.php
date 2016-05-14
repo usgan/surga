@@ -41,6 +41,7 @@ class Login extends CI_Controller {
        
         $ini = $this->typeencryption->formencryption($de);
         echo 'ini form encrypt : '.$ini.'<br>';
+        echo "strlen : ".strlen($ini)."<br>";
         
         $itu = $this->typeencryption->formdecryption($ini);
         echo 'ini form decrypt : '.$itu.'<br>';
@@ -83,7 +84,7 @@ class Login extends CI_Controller {
                             array_push($data['verified'], array($ver[$j]->user_id, $ver[$j]->username, $ver[$j]->email, $ver[$j]->status));
                         } else{
                             $data['notif'] = "Password Salah";
-                            $this->load->view("admin/login",$data);
+                            //$this->load->view("admin/login",$data);
                         }
                     }
                 } else {
