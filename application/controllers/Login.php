@@ -1,12 +1,12 @@
 <?php
 class Login extends CI_Controller {
     
-    /*
-     * -----------Login Controller----------------
-     * -----------Created by Demon (2016-05-14)---
-     * -----------Changed Database : auth_table (structure on time changed by varchar 21)
-     * -----------Login View() as the index
-     */
+/*
+ * -----------Login Controller----------------
+ * -----------Created by Demon (2016-05-14)---
+ * -----------Changed Database : auth_table (structure on time changed by varchar 21)
+ * -----------Login View() as the index
+ */
  
     public function __construct() {
         parent::__construct();
@@ -286,7 +286,62 @@ class Login extends CI_Controller {
         header('location:'.base_url().'index.php/home');
     }
     
-    
+    public function mail(){
+        
+        $this->load->library('email');
+            $config = array(
+                'protocol' => 'smtp',
+                'smtp_host' => 'ssl://smtp.gmail.com',
+                'smtp_port' => 465,
+                'smtp_user' => 'badassinheaven@gmail.com',
+                'smtp_pass' => 'ShimizuPompaAir1234',
+                'mailtype'  => 'text', 
+                'charset'   => 'iso-8859-1',
+                'wordwrap' => TRUE
+            );
+            $this->load->library('email', $config);
+            
+            $this->email->set_newline("\r\n");
+
+            // Set to, from, message, etc.
+
+            $this->email->from('badassinheaven@gmail.com', 'Bad Ass');
+            $this->email->to('demon.yunus666@gmail.com'); 
+            $this->email->subject('Email Test');
+            $this->email->message('Testing the email class.');  
+            $result = $this->email->send();
+           
+            if($result)
+            {
+              echo 'Email sent.';
+            }
+            else
+            {
+             show_error($this->email->print_debugger());
+            }
+         
+        /*
+        $from_mail = 'badassinheaven@gmail.com';
+        $to = 'demon.yunus666@gmail.com';
+
+        $subject = 'SUBJECT MESSAGE';
+        $message = "<<<AKAM
+        BODY message on send.<br>
+        <span style='color:#f00;font-weight:bold;'>You can change body message</span>
+        AKAM";
+
+        $headers  = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $headers .= 'To: Your Name <'.$to.'>' . "\r\n";
+        $headers .= 'From: NO-REPLY <'.$from_mail.'>' . "\r\n";
+
+        $sendtomail = mail($to, $subject, $message, $headers);
+        if( $sendtomail ) echo 'Success';
+        else echo 'Failed';
+        
+         * 
+         */
+        }
 }
 
 
