@@ -13,7 +13,7 @@ class M_user extends CI_Model{
         //$this->db->where('username', $data['username']);
         //$this->db->where('password',$data['password']));
         //$this->db->where('active', "Y");
-        $query = $this->db->get('user_table', 1);
+        $query = $this->db->get('tb_pengguna', 1);
         return $query->result();
         //return $this->db->get('table_user')->row();
     }
@@ -23,7 +23,7 @@ class M_user extends CI_Model{
         $this->status = "blocked";
 
         //update data
-        $this->db->update('user_table', $this, array('user_id'=>$id));
+        $this->db->update('tb_pengguna', $this, array('id_pengguna'=>$id));
     }
     
     

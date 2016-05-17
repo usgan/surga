@@ -6,6 +6,7 @@ class Login extends CI_Controller {
  * -----------Created by Demon (2016-05-14)---
  * -----------Changed Database : auth_table (structure on time changed by varchar 21)
  * -----------Login View() as the index
+ * 
  */
  
     public function __construct() {
@@ -17,7 +18,7 @@ class Login extends CI_Controller {
         $this->load->library("typeencryption");
         
         //check the session if session is not empty go to home controller
-        if(!empty($_SESSION['user_id'])){
+        if(!empty($_SESSION['id_pengguna'])){
             redirect('home');
         }
     }
@@ -70,7 +71,7 @@ class Login extends CI_Controller {
             $user = array();
         } else {
         //push the user data into $user without password
-        array_push($user, array($data['userdata'][0]->user_id, $data['userdata'][0]->username, $data['userdata'][0]->email, $data['userdata'][0]->status));
+        array_push($user, array($data['userdata'][0]->id_pengguna, $data['userdata'][0]->nama_pengguna, $data['userdata'][0]->email, $data['userdata'][0]->status));
         }
         //checking if the user in login form is true then push data in $data[user]
         for ($i=0; $i<count($user); $i++){
@@ -94,8 +95,8 @@ class Login extends CI_Controller {
                 if ($ver!=null && $ver!=""){                    //check if data array from user_table is not empty with status is not blocked
                     //checking the username and password is true with standard decryption method
                     for ($j=0; $j<count($ver); $j++){           
-                        if (($this->typeencryption->thirddecryption($ver[$j]->username)==$this->input->post('username')) && ($this->typeencryption->seconddecryption($ver[$j]->password)==$this->typeencryption->secondloginencryption($pass))){
-                            array_push($data['verified'], array($ver[$j]->user_id, $ver[$j]->username, $ver[$j]->email, $ver[$j]->status));
+                        if (($this->typeencryption->thirddecryption($ver[$j]->nama_pengguna)==$this->input->post('username')) && ($this->typeencryption->seconddecryption($ver[$j]->password)==$this->typeencryption->secondloginencryption($pass))){
+                            array_push($data['verified'], array($ver[$j]->id_pengguna, $ver[$j]->nama_pengguna, $ver[$j]->email, $ver[$j]->status));
                         } else{
                             $data['notif'] = "Password Salah";  //set notification if password is false
                             //$this->load->view("admin/login",$data);
@@ -131,8 +132,8 @@ class Login extends CI_Controller {
                 $this->trueAuth($data['verified'][0][0]);                       //record the username, login time ip_address and mac_address into auth_table with status is true
                 //set the user_id, ip_address, mac_address, login time in sesi array from login form
                 $sesi = array(
-                            'user_id' => $data['verified'][0][0],
-                            'ip_address' => $this->typeencryption->thirdencryption($this->get_client_ip()),         //encrypt the ip_client
+                            'id_pengguna' => $data['verified'][0][0],
+                            'ip_address' => $this->typeencryption->thirdencryption($this->input->ip_address()),         //encrypt the ip_client
                             'mac_address' => $this->typeencryption->thirdencryption($this->get_real_mac_addr()),    //encrypt the mac address client
                             'time' => $this->time()
                         );
@@ -258,7 +259,7 @@ class Login extends CI_Controller {
         $now = date("Y-m-d");
         $data['auth'] = $this->M_auth->authNow($id,$now);
         $user = $this->M_login->userID($id);
-        $data['username'] = $this->typeencryption->thirddecryption($user[0]->username);
+        $data['username'] = $this->typeencryption->thirddecryption($user[0]->nama_pengguna);
         $Cdata = count($data['auth']);
         $data['notif'] = "";
         if ($Cdata < 10){

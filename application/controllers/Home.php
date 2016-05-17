@@ -7,14 +7,14 @@ class Home extends CI_Controller {
         $this->load->model("admin/M_auth");
         $this->load->library("typeencryption");
         
-        if($this->session->userdata('user_id')==null) {
+        if($this->session->userdata('id_pengguna')==null) {
             $this->session->set_flashdata('flash_data', 'Anda Tidak Mempunyai Hak Akses!');
                     redirect('Login/view');
         }
         else{
-            $auth = $this->M_auth->authTrue($this->session->userdata('user_id'),$this->session->userdata('time'));
+            $auth = $this->M_auth->authTrue($this->session->userdata('id_pengguna'),$this->session->userdata('time'));
             for ($i=0; $i<count($auth); $i++){
-                if ($auth[$i]->user_id==$this->session->userdata('user_id') && 
+                if ($auth[$i]->id_pengguna==$this->session->userdata('id_pengguna') && 
                         $this->typeencryption->thirddecryption($auth[$i]->ip_address)==$this->typeencryption->thirddecryption($this->session->userdata('ip_address')) && 
                         $this->typeencryption->thirddecryption($auth[$i]->mac_address)==$this->typeencryption->thirddecryption($this->session->userdata('mac_address')))
                 {
