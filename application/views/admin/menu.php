@@ -9,22 +9,11 @@
                                 <li><a href="<?php echo base_url()?>index.php/user/data">User</a></li>
                             </ul>
                         </li>
-                        <li class="nav-heading"><span>Features</span></li>
-                        <li class="droplink"><a href="#"><span class="menu-icon icon-briefcase"></span><p>UI Kits</p><span class="arrow"></span></a>
+                        <li class="droplink"><a href="#"><span class="menu-icon glyphicon glyphicon-tower"></span><p>Toko</p><span class="arrow"></span></a>
                             <ul class="sub-menu">
-                                <li><a href="ui-alerts.html">Alerts</a></li>
-                                <li><a href="ui-buttons.html">Buttons</a></li>
-                                <li><a href="ui-icons.html">Icons</a></li>
-                                <li><a href="ui-typography.html">Typography</a></li>
-                                <li><a href="ui-notifications.html">Notifications</a></li>
-                                <li><a href="ui-grid.html">Grid</a></li>
-                                <li><a href="ui-tabs-accordions.html">Tabs &amp; Accordions</a></li>
-                                <li><a href="ui-modals.html">Modals</a></li>
-                                <li><a href="ui-panels.html">Panels</a></li>
-                                <li><a href="ui-progress.html">Progress Bars</a></li>
-                                <li><a href="ui-sliders.html">Sliders</a></li>
-                                <li><a href="ui-nestable.html">Nestable</a></li>
-                                <li><a href="ui-tree-view.html">Tree View</a></li>
+                                <li><a href="<?php echo base_url()?>index.php/toko/data">Toko</a></li>
+                                <li><a href="<?php echo base_url()?>index.php/sttoko/data">Status Toko</a></li>
+                                <li><a href="<?php echo base_url()?>index.php/lokasi/data">Lokasi</a></li>
                             </ul>
                         </li>
                         <li class="droplink"><a href="#"><span class="menu-icon icon-layers"></span><p>Layers</p><span class="arrow"></span></a>

@@ -26,6 +26,12 @@
         <link href="<?php echo base_url()?>/assets/admin/plugins/metrojs/MetroJs.min.css" rel="stylesheet" type="text/css"/>	
         <link href="<?php echo base_url()?>/assets/admin/plugins/toastr/toastr.min.css" rel="stylesheet" type="text/css"/>	
         	
+        <!--form elements-->
+        <link href="<?php echo base_url()?>/assets/admin/plugins/summernote-master/summernote.css" rel="stylesheet" type="text/css"/>
+        <link href="<?php echo base_url()?>/assets/admin/plugins/bootstrap-colorpicker/css/colorpicker.css" rel="stylesheet" type="text/css"/>
+        <link href="<?php echo base_url()?>/assets/admin/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet" type="text/css"/>
+        <link href="<?php echo base_url()?>/assets/admin/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css"/>
+        
         <!--data tables-->
         <link href="<?php echo base_url()?>/assets/admin/plugins/datatables/css/jquery.datatables.min.css" rel="stylesheet" type="text/css"/>	
         <link href="<?php echo base_url()?>/assets/admin/plugins/datatables/css/jquery.datatables_themeroller.css" rel="stylesheet" type="text/css"/>	

@@ -43,6 +43,14 @@
         <script src="<?php echo base_url()?>/assets/admin/js/modern.min.js"></script>
         <script src="<?php echo base_url()?>/assets/admin/js/pages/table-data.js"></script>
         
+        <!--form elements-->
+        <script src="<?php echo base_url()?>/assets/admin/plugins/summernote-master/summernote.min.js"></script>
+        <script src="<?php echo base_url()?>/assets/admin/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+        <script src="<?php echo base_url()?>/assets/admin/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+        <script src="<?php echo base_url()?>/assets/admin/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+        <script src="<?php echo base_url()?>/assets/admin/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+        <script src="<?php echo base_url()?>/assets/admin/js/pages/form-elements.js"></script>
+        
     </body>
 
 <!-- Mirrored from lambdathemes.in/admin2/table-data.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 12 Feb 2016 17:31:02 GMT -->
