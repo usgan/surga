@@ -25,11 +25,8 @@ class M_login extends CI_Model{
     
     public function user_verified(){
         $this->db->select('id_pengguna, nama_pengguna, email, password, status');
-<<<<<<< HEAD
         //tambahan usgan
         $this->db->select('id_level');
-=======
->>>>>>> 30a070c2cbea4ce5c6896233d5ff79983331e000
         $this->db->where('status !=', 'blocked');
         $query = $this->db->get('tb_pengguna', 1);
         return $query->result();
