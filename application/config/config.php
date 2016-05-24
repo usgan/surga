@@ -23,7 +23,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
+<<<<<<< HEAD
 $config['base_url'] = 'http://localhost/food_ecomers/surga/';
+=======
+$config['base_url'] = 'http://localhost:8080/template/';
+>>>>>>> 30a070c2cbea4ce5c6896233d5ff79983331e000
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +39,11 @@ $config['base_url'] = 'http://localhost/food_ecomers/surga/';
 | variable so that it is blank.
 |
 */
+<<<<<<< HEAD
 $config['index_page'] = '';
+=======
+$config['index_page'] = 'index.php';
+>>>>>>> 30a070c2cbea4ce5c6896233d5ff79983331e000
 
 /*
 |--------------------------------------------------------------------------
@@ -136,7 +144,11 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
+<<<<<<< HEAD
 $config['composer_autoload'] = TRUE;
+=======
+$config['composer_autoload'] = FALSE;
+>>>>>>> 30a070c2cbea4ce5c6896233d5ff79983331e000
 
 /*
 |--------------------------------------------------------------------------
