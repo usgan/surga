@@ -1,12 +1,13 @@
 <?php
 class Login extends CI_Controller {
     
-    /*
-     * -----------Login Controller----------------
-     * -----------Created by Demon (2016-05-14)---
-     * -----------Changed Database : auth_table (structure on time changed by varchar 21)
-     * -----------Login View() as the index
-     */
+/*
+ * -----------Login Controller----------------
+ * -----------Created by Demon (2016-05-14)---
+ * -----------Changed Database : auth_table (structure on time changed by varchar 21)
+ * -----------Login View() as the index
+ * 
+ */
  
     public function __construct() {
         parent::__construct();
@@ -14,10 +15,9 @@ class Login extends CI_Controller {
         $this->load->model("admin/M_login");
         $this->load->model("admin/M_auth");
         $this->load->model("admin/M_user");
-        $this->load->library("typeencryption");
         
         //check the session if session is not empty go to home controller
-        if(!empty($_SESSION['user_id'])){
+        if(!empty($_SESSION['id_pengguna'])){
             redirect('home');
         }
     }
@@ -56,7 +56,9 @@ class Login extends CI_Controller {
     //end of test function
     
     public function login(){
-        
+        //variabel usgan
+        $level = "0";
+
         //error_reporting(0);                         //don't show the error, warning, and notice message
         $data['notif'] = "";                        //set the notification as empty
         $data['pass_verified'] = 2;                 //set password verified in 2, 
@@ -70,7 +72,7 @@ class Login extends CI_Controller {
             $user = array();
         } else {
         //push the user data into $user without password
-        array_push($user, array($data['userdata'][0]->user_id, $data['userdata'][0]->username, $data['userdata'][0]->email, $data['userdata'][0]->status));
+        array_push($user, array($data['userdata'][0]->id_pengguna, $data['userdata'][0]->nama_pengguna, $data['userdata'][0]->email, $data['userdata'][0]->status));
         }
         //checking if the user in login form is true then push data in $data[user]
         for ($i=0; $i<count($user); $i++){
@@ -94,8 +96,10 @@ class Login extends CI_Controller {
                 if ($ver!=null && $ver!=""){                    //check if data array from user_table is not empty with status is not blocked
                     //checking the username and password is true with standard decryption method
                     for ($j=0; $j<count($ver); $j++){           
-                        if (($this->typeencryption->thirddecryption($ver[$j]->username)==$this->input->post('username')) && ($this->typeencryption->seconddecryption($ver[$j]->password)==$this->typeencryption->secondloginencryption($pass))){
-                            array_push($data['verified'], array($ver[$j]->user_id, $ver[$j]->username, $ver[$j]->email, $ver[$j]->status));
+                        if (($this->typeencryption->thirddecryption($ver[$j]->nama_pengguna)==$this->input->post('username')) && ($this->typeencryption->seconddecryption($ver[$j]->password)==$this->typeencryption->secondloginencryption($pass))){
+                            array_push($data['verified'], array($ver[$j]->id_pengguna, $ver[$j]->nama_pengguna, $ver[$j]->email, $ver[$j]->status));
+                            //variabel usgan
+                            $level = $ver[$j]->id_level;
                         } else{
                             $data['notif'] = "Password Salah";  //set notification if password is false
                             //$this->load->view("admin/login",$data);
@@ -131,10 +135,11 @@ class Login extends CI_Controller {
                 $this->trueAuth($data['verified'][0][0]);                       //record the username, login time ip_address and mac_address into auth_table with status is true
                 //set the user_id, ip_address, mac_address, login time in sesi array from login form
                 $sesi = array(
-                            'user_id' => $data['verified'][0][0],
-                            'ip_address' => $this->typeencryption->thirdencryption($this->get_client_ip()),         //encrypt the ip_client
+                            'id_pengguna' => $data['verified'][0][0],
+                            'ip_address' => $this->typeencryption->thirdencryption($this->input->ip_address()),         //encrypt the ip_client
                             'mac_address' => $this->typeencryption->thirdencryption($this->get_real_mac_addr()),    //encrypt the mac address client
-                            'time' => $this->time()
+                            'time' => $this->time(),
+                            'levelp' =>  $this->typeencryption->thirdencryption($level) //tambahan_sesi usgan
                         );
                 $this->session->set_userdata($sesi);                            //save the sesi array in userdata session
                 $this->in();                                                    //call home in() function means goto home controller
@@ -258,7 +263,7 @@ class Login extends CI_Controller {
         $now = date("Y-m-d");
         $data['auth'] = $this->M_auth->authNow($id,$now);
         $user = $this->M_login->userID($id);
-        $data['username'] = $this->typeencryption->thirddecryption($user[0]->username);
+        $data['username'] = $this->typeencryption->thirddecryption($user[0]->nama_pengguna);
         $Cdata = count($data['auth']);
         $data['notif'] = "";
         if ($Cdata < 10){
@@ -286,7 +291,62 @@ class Login extends CI_Controller {
         header('location:'.base_url().'index.php/home');
     }
     
-    
+    public function mail(){
+        
+        $this->load->library('email');
+            $config = array(
+                'protocol' => 'smtp',
+                'smtp_host' => 'ssl://smtp.gmail.com',
+                'smtp_port' => 465,
+                'smtp_user' => 'badassinheaven@gmail.com',
+                'smtp_pass' => 'ShimizuPompaAir1234',
+                'mailtype'  => 'text', 
+                'charset'   => 'iso-8859-1',
+                'wordwrap' => TRUE
+            );
+            $this->load->library('email', $config);
+            
+            $this->email->set_newline("\r\n");
+
+            // Set to, from, message, etc.
+
+            $this->email->from('badassinheaven@gmail.com', 'Bad Ass');
+            $this->email->to('demon.yunus666@gmail.com'); 
+            $this->email->subject('Email Test');
+            $this->email->message('Testing the email class.');  
+            $result = $this->email->send();
+           
+            if($result)
+            {
+              echo 'Email sent.';
+            }
+            else
+            {
+             show_error($this->email->print_debugger());
+            }
+         
+        /*
+        $from_mail = 'badassinheaven@gmail.com';
+        $to = 'demon.yunus666@gmail.com';
+
+        $subject = 'SUBJECT MESSAGE';
+        $message = "<<<AKAM
+        BODY message on send.<br>
+        <span style='color:#f00;font-weight:bold;'>You can change body message</span>
+        AKAM";
+
+        $headers  = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $headers .= 'To: Your Name <'.$to.'>' . "\r\n";
+        $headers .= 'From: NO-REPLY <'.$from_mail.'>' . "\r\n";
+
+        $sendtomail = mail($to, $subject, $message, $headers);
+        if( $sendtomail ) echo 'Success';
+        else echo 'Failed';
+        
+         * 
+         */
+        }
 }
 
 
